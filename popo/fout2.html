@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fout! Onjuiste Beslissing</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #3a0000 0%, #000000 100%); /* Dieper, donkerder rood voor drama */
+            background-attachment: fixed;
+            color: #ffffff;
+            text-align: center;
+            overflow: hidden; /* Om te voorkomen dat de animatie scrollbars veroorzaakt */
+        }
+
+        .container {
+            max-width: 700px;
+            width: 90%;
+            padding: 50px;
+            border-radius: 24px;
+            background: rgba(255, 0, 0, 0.05); /* Zeer subtiele rode gloed */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.2); /* Rode rand */
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.2); /* Rode gloed schaduw */
+            animation: fadeInScale 1.2s ease-out forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #ff4d4d; /* Levendiger rood */
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 77, 77, 0.7);
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite alternate; /* Dramatische pulserende tekst */
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .icon {
+            font-size: 8rem;
+            color: #ff4d4d;
+            margin-bottom: 30px;
+            animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both infinite; /* Schuddend effect */
+            animation-iteration-count: 3; /* Schudt 3 keer en stopt dan */
+        }
+
+        button {
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(145deg, #ff4d4d 0%, #cc0000 100%); /* Rode gradient knop */
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 0, 0, 0.6);
+            filter: brightness(1.1);
+        }
+
+        button:active {
+            transform: translateY(-2px);
+        }
+
+        /* Achtergrond animatie - subtiele pulserende gloed */
+        .background-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: backgroundPulse 4s infinite ease-in-out alternate;
+            z-index: 0;
+        }
+
+        /* Keyframe Animatie voor fade-in en schaling */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Keyframe Animatie voor pulserende tekst */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.03);
+                opacity: 0.9;
+            }
+        }
+
+        /* Keyframe Animatie voor schudden */
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0) rotate(0.5deg); }
+            20%, 80% { transform: translate3d(2px, 0, 0) rotate(-0.5deg); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0) rotate(1deg); }
+            40%, 60% { transform: translate3d(4px, 0, 0) rotate(-1deg); }
+        }
+
+        /* Keyframe Animatie voor achtergrond gloed */
+        @keyframes backgroundPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.2; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.2; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-effect"></div>
+
+    <div class="container">
+        <div class="icon">❌</div> <h1>Fout!</h1>
+        <h3>Dit was een overtreding, De juiste actie was een gele kaart</h3>
+        <button onclick="window.location.href = 'quote2.html';">Doorgaan</button>
+    </div>
+	
+	<script data-goatcounter="https://nicusor.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
