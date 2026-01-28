@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheidsrechter Beslissing</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .video-box {
+            position: relative;
+            margin-bottom: 35px;
+            padding: 10px;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .video-overlay span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            max-width: 80%;
+            line-height: 1.4;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Styling voor de waarschuwing */
+        .video-overlay.no-replay {
+            background: rgba(0, 0, 0, 0.95);
+            cursor: default;
+        }
+
+        .video-overlay.no-replay span {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        h3 {
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 16px 28px;
+            font-size: 15px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 200px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .green { background: #27ae60; color: white; }
+        .yellow { background: #f1c40f; color: #000; }
+        .red { background: #c0392b; color: white; }
+
+        button:hover {
+            transform: translateY(-4px);
+            filter: brightness(1.2);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Tril animatie voor de waarschuwing */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="video-box" id="videoBox">
+        <div class="video-overlay" id="overlay" onclick="startVideo()">
+            <span id="overlayText">Klik om de actie te zien</span>
+        </div>
+
+        <video id="myVideo" playsinline muted preload="auto">
+            <source src="video1.mp4" type="video/mp4">
+            Je browser ondersteunt deze video niet.
+        </video>
+    </div>
+
+    <h3>Wat is volgens jou de juiste beslissing?</h3>
+
+    <div class="buttons">
+        <button class="green" onclick="goToGood1()">🟢 Niks aan de hand</button>
+        <button class="yellow" onclick="goToFout1()">🟡 Gele kaart</button>
+        <button class="red" onclick="goToFout1()">🔴 Rode kaart</button>
+    </div>
+</div>
+
+<script>
+const video = document.getElementById('myVideo');
+const overlay = document.getElementById('overlay');
+const overlayText = document.getElementById('overlayText');
+
+function startVideo() {
+    overlay.classList.add('hidden');
+    video.play();
+}
+
+video.onended = function() {
+    // Breng de overlay terug
+    overlay.classList.remove('hidden');
+    overlayText.innerHTML = "Bekijk opnieuw?";
+    
+    // Verander de functie van de klik
+    overlay.onclick = function() {
+        overlay.classList.add('no-replay');
+        overlayText.innerHTML = "Een scheidsrechter krijgt ook geen tweede kans. Maak nu je keuze!";
+        // Haal de klik-actie nu echt weg
+        overlay.onclick = null;
+    };
+};
+
+function goToGood1() { window.location.href = "goed1.html"; }
+function goToFout1() { window.location.href = "fout1.html"; }
+</script>
+
+</body>
+</html>

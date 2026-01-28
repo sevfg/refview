@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheidsrechter Beslissing</title>
+    <style>
+        /* ... Je bestaande styles blijven gelijk ... */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0; display: flex; justify-content: center;
+            align-items: center; min-height: 100vh;
+            background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%);
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 850px; width: 90%; padding: 40px; border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;
+        }
+
+        .video-box { position: relative; margin-bottom: 35px; border-radius: 16px; background: #000; overflow: hidden; min-height: 200px; }
+        video { width: 100%; display: block; border-radius: 12px; }
+
+        /* DE SPINNER STYLING */
+        .loader {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid #f1c40f; /* Gele kleur van je buttons */
+            border-radius: 50%;
+            width: 50px; height: 50px;
+            animation: spin 1s linear infinite;
+            z-index: 15;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Overlay staat standaard op verborgen (opacity 0) */
+        .video-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85); display: flex;
+            justify-content: center; align-items: center; z-index: 20;
+            cursor: pointer; transition: opacity 0.5s ease;
+            opacity: 0; pointer-events: none; /* Kan niet klikken als hij onzichtbaar is */
+        }
+
+        .video-overlay.visible { opacity: 1; pointer-events: auto; }
+        .video-overlay.hidden { opacity: 0; pointer-events: none; }
+
+        .video-overlay span {
+            font-size: 1.2rem; font-weight: bold; color: #fff;
+            border: 2px solid #fff; padding: 15px 30px; border-radius: 50px;
+        }
+
+        /* De rest van je button styles... */
+        .buttons { display: flex; gap: 20px; justify-content: center; }
+        button { padding: 16px 28px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+        .green { background: #27ae60; color: white; }
+        .yellow { background: #f1c40f; color: #000; }
+        .red { background: #c0392b; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="video-box">
+        <div id="loadingSpinner" class="loader"></div>
+
+        <div class="video-overlay" id="overlay" onclick="startVideo()">
+            <span id="overlayText">Klik om de actie te zien</span>
+        </div>
+
+        <video id="myVideo" playsinline muted preload="auto">
+            <source src="video2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <h3>Wat is de juiste beslissing?</h3>
+    <div class="buttons">
+        <button class="green" onclick="goToGood()">🟢 Niks aan de hand</button>
+        <button class="yellow" onclick="goToFout()">🟡 Gele kaart</button>
+        <button class="red" onclick="goToFout()">🔴 Rode kaart</button>
+    </div>
+</div>
+
+<script>
+const video = document.getElementById('myVideo');
+const overlay = document.getElementById('overlay');
+const spinner = document.getElementById('loadingSpinner');
+const overlayText = document.getElementById('overlayText');
+
+// Zodra de video genoeg geladen is om zonder haperen te spelen:
+video.oncanplaythrough = function() {
+    spinner.style.display = 'none'; // Verberg laadrondje
+    overlay.classList.add('visible'); // Laat de startknop zien
+};
+
+function startVideo() {
+    overlay.classList.remove('visible');
+    overlay.classList.add('hidden');
+    video.play();
+}
+
+video.onended = function() {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('visible');
+    overlayText.innerHTML = "Bekijk opnieuw?";
+    overlay.onclick = function() {
+        overlayText.innerHTML = "Een scheidsrechter krijgt ook geen tweede kans!";
+        overlay.style.cursor = "default";
+        overlay.onclick = null;
+    };
+};
+
+function goToGood() { window.location.href = "goed3.html"; }
+function goToFout() { window.location.href = "fout3.html"; }
+</script>
+
+<script data-goatcounter="https://nicusor.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
