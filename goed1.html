@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Uitstekend! Correcte Beslissing</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100svh; /* beter voor mobiel dan 100vh */
+            background: radial-gradient(circle at center, #0a2e1a 0%, #000000 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            padding: 40px 25px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.2);
+            animation: slideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon {
+            font-size: clamp(4rem, 10vw, 7rem);
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: celebrate 0.6s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin: 0;
+            background: linear-gradient(to bottom, #f1c40f, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: clamp(1rem, 4vw, 1.6rem);
+            color: #bdc3c7;
+            margin: 15px 0 35px 0;
+            font-weight: 300;
+        }
+
+        button {
+            width: 100%;
+            max-width: 320px;
+            padding: 18px;
+            font-size: 1.1rem;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(145deg, #27ae60 0%, #1e8449 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.3);
+            filter: brightness(1.2);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fly 3s infinite linear;
+            pointer-events: none; /* 🔥 BELANGRIJK: blokkeert geen klikken meer */
+            z-index: 0;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0) rotate(-20deg); }
+            70% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes fly {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        for (let i = 0; i < 30; i++) {
+            let sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(sparkle);
+        }
+    </script>
+
+    <div class="container">
+        <div class="icon">🏆</div>
+        <h1>Uitstekend!</h1>
+        <h3>Goed gezien, de speler dook.</h3>
+        
+        <button onclick="window.location.href='quoteG1.html'">Doorgaan</button>
+    </div>
+
+    <script data-goatcounter="https://nicusor.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

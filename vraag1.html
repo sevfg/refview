@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scheidsrechter Beslissing - Situatie 2</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .video-box {
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 14px;
+            z-index: 10;
+            cursor: pointer;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .video-overlay span {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid #fff;
+            padding: 12px 20px;
+            border-radius: 40px;
+            background: rgba(255,255,255,0.1);
+            line-height: 1.4;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-overlay.no-replay span {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        h3 {
+            margin: 20px 0;
+            font-weight: 400;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            color: #e0e0e0;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 18px;
+            font-size: 16px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .green { background: #27ae60; color: white; }
+        .yellow { background: #f1c40f; color: #000; }
+        .red { background: #c0392b; color: white; }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="video-box">
+        <div class="video-overlay" id="overlay" onclick="startVideo()">
+            <span id="overlayText">Tik om te kijken</span>
+        </div>
+
+        <video id="myVideo" playsinline muted>
+            <source src="video1.mp4" type="video/mp4">
+            Je browser ondersteunt deze video niet.
+        </video>
+    </div>
+
+    <h3>Wat is volgens jou de juiste beslissing?</h3>
+
+    <div class="buttons">
+        <button class="green" onclick="goTogoed2()">🟢 Niks aan de hand</button>
+        <button class="yellow" onclick="goTofout2()">🟡 Gele kaart</button>
+        <button class="red" onclick="goTofout2()">🔴 Rode kaart</button>
+    </div>
+</div>
+
+<script>
+const video = document.getElementById('myVideo');
+const overlay = document.getElementById('overlay');
+const overlayText = document.getElementById('overlayText');
+
+function startVideo() {
+    overlay.classList.add('hidden');
+    video.play();
+}
+
+video.onended = function() {
+    overlay.classList.remove('hidden');
+    overlayText.innerHTML = "Nog een keer bekijken?";
+
+    overlay.onclick = function() {
+        overlay.classList.add('no-replay');
+        overlayText.innerHTML = "Een scheids ziet het ook maar één keer. Kies nu!";
+        overlay.onclick = null;
+    };
+};
+
+function goTogoed2() { window.location.href = "goed1.html"; }
+function goTofout2() { window.location.href = "fout1.html"; }
+</script>
+
+<script data-goatcounter="https://nicusor.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
