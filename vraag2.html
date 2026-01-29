@@ -23,23 +23,7 @@
         .video-box { position: relative; margin-bottom: 35px; border-radius: 16px; background: #000; overflow: hidden; min-height: 200px; }
         video { width: 100%; display: block; border-radius: 12px; }
 
-        /* DE SPINNER STYLING */
-        .loader {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-top: 5px solid #f1c40f; /* Gele kleur van je buttons */
-            border-radius: 50%;
-            width: 50px; height: 50px;
-            animation: spin 1s linear infinite;
-            z-index: 15;
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
+       
 
         /* Overlay staat standaard op verborgen (opacity 0) */
         .video-overlay {
@@ -70,7 +54,7 @@
 
 <div class="container">
     <div class="video-box">
-        <div id="loadingSpinner" class="loader"></div>
+  
 
         <div class="video-overlay" id="overlay" onclick="startVideo()">
             <span id="overlayText">Klik om de actie te zien</span>
@@ -92,14 +76,11 @@
 <script>
 const video = document.getElementById('myVideo');
 const overlay = document.getElementById('overlay');
-const spinner = document.getElementById('loadingSpinner');
+
 const overlayText = document.getElementById('overlayText');
 
 // Zodra de video genoeg geladen is om zonder haperen te spelen:
-video.oncanplaythrough = function() {
-    spinner.style.display = 'none'; // Verberg laadrondje
-    overlay.classList.add('visible'); // Laat de startknop zien
-};
+
 
 function startVideo() {
     overlay.classList.remove('visible');
@@ -127,3 +108,4 @@ function goToFout() { window.location.href = "fout2.html"; }
 </body>
 
 </html>
+
